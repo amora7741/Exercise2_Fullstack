@@ -16,13 +16,23 @@ const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
         await axios.post('/api/auth/register', { username, password });
         toast({
           variant: 'success',
-          title: 'Registration Successful!',
+          title: 'Success!',
+          description: 'You sucessfully registered.',
         });
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          title: 'Something went wrong.',
-        });
+      } catch (error: any) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: error.response?.data?.error || 'Something went wrong!',
+          });
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'An unexpected error occurred.',
+          });
+        }
       }
     } else {
       console.log('Logging in');
