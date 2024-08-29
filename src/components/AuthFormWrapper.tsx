@@ -3,13 +3,27 @@
 import { Credentials } from '@/lib/validation/credentials';
 import AuthForm from './AuthForm';
 import axios from 'axios';
+import { useToast } from '@/components/ui/use-toast';
 
 const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
+  const { toast } = useToast();
+
   const handleSubmit = async (data: Credentials) => {
     const { username, password } = data;
 
     if (page === 'register') {
-      console.log('Registering');
+      try {
+        await axios.post('/api/auth/register', { username, password });
+        toast({
+          variant: 'success',
+          title: 'Registration Successful!',
+        });
+      } catch (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Something went wrong.',
+        });
+      }
     } else {
       console.log('Logging in');
     }

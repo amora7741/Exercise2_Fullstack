@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { credentialsSchema, Credentials } from '@/lib/validation/credentials';
 import { LoaderCircle } from 'lucide-react';
+import { useEffect } from 'react';
 
 const AuthForm = ({
   submitForm,
@@ -13,10 +14,17 @@ const AuthForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<Credentials>({
     resolver: zodResolver(credentialsSchema),
   });
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <form className='space-y-12' onSubmit={handleSubmit(submitForm)}>
