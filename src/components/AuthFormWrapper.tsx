@@ -4,6 +4,7 @@ import { Credentials } from '@/lib/validation/credentials';
 import AuthForm from './AuthForm';
 import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
+import { signIn } from 'next-auth/react';
 
 const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
   const { toast } = useToast();
@@ -35,7 +36,15 @@ const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
         }
       }
     } else {
-      console.log('Logging in');
+      try {
+        await signIn('credentials', { username, password });
+      } catch (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'An unexpected error occurred.',
+        });
+      }
     }
   };
 
