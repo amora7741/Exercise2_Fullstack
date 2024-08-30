@@ -25,7 +25,9 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
           <LogoutPopover username={session.user.username} />
         </div>
       </div>
-      <main className='max-w-screen-2xl flex mx-auto p-8'>{children}</main>
+      <main className='max-w-screen-2xl w-full flex flex-col mx-auto p-8'>
+        {children}
+      </main>
     </div>
   );
 };

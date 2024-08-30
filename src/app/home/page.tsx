@@ -1,5 +1,7 @@
+import PageHeader from '@/components/PageHeader';
+
 const HomePage = () => {
-  return <h1 className='text-3xl font-bold'>Welcome to TaskMaster!</h1>;
+  return <PageHeader>Welcome to TaskMaster!</PageHeader>;
 };
 
 export default HomePage;

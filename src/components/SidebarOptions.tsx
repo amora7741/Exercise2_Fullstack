@@ -7,7 +7,7 @@ const sideOptions: SidebarOption[] = [
   {
     id: 1,
     name: 'Create Task',
-    href: '/home/createtask',
+    href: '/home/tasks/create',
     Icon: Plus,
   },
   {

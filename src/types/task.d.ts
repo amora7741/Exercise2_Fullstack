@@ -1,4 +1,4 @@
-type Priority = 'low' | 'medium' | 'high';
+type Priority = 'Low' | 'Medium' | 'High';
 
 type Task = {
   title: string;
