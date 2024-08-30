@@ -37,12 +37,20 @@ const AuthFormWrapper = ({ page }: { page: 'login' | 'signup' }) => {
       }
     } else {
       try {
-        await signIn('credentials', { username, password });
-      } catch (error) {
+        const result = await signIn('credentials', {
+          username,
+          password,
+          redirect: false,
+        });
+
+        if (!result?.ok) {
+          throw new Error(result?.error || 'Failed to sign in');
+        }
+      } catch (error: any) {
         toast({
           variant: 'destructive',
           title: 'Error',
-          description: 'An unexpected error occurred.',
+          description: error?.message || 'An unexpected error occurred.',
         });
       }
     }

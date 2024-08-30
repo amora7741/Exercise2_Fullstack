@@ -25,19 +25,23 @@ export const authOptions: NextAuthOptions = {
 
         const user = response.rows[0];
 
+        if (!user) {
+          throw new Error('User does not exist!');
+        }
+
         const correctPassword = await compare(
           credentials?.password || '',
           user.password
         );
 
-        if (correctPassword) {
-          return {
-            id: user.id,
-            username: user.username,
-          };
+        if (!correctPassword) {
+          throw new Error('Incorrect password.');
         }
 
-        return null;
+        return {
+          id: user.id,
+          username: user.username,
+        };
       },
     }),
   ],
