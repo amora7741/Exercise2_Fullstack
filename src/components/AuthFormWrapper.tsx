@@ -6,13 +6,13 @@ import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { signIn } from 'next-auth/react';
 
-const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
+const AuthFormWrapper = ({ page }: { page: 'login' | 'signup' }) => {
   const { toast } = useToast();
 
   const handleSubmit = async (data: Credentials) => {
     const { username, password } = data;
 
-    if (page === 'register') {
+    if (page === 'signup') {
       try {
         await axios.post('/api/auth/register', { username, password });
         toast({
@@ -48,7 +48,7 @@ const AuthFormWrapper = ({ page }: { page: 'login' | 'register' }) => {
     }
   };
 
-  return <AuthForm submitForm={handleSubmit} />;
+  return <AuthForm submitForm={handleSubmit} page={page} />;
 };
 
 export default AuthFormWrapper;

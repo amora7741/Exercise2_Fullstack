@@ -8,7 +8,7 @@ export default withAuth(
 
     const isAuth = await getToken({ req });
     const isLoginPath =
-      pathName.startsWith('/register') || pathName.startsWith('/login');
+      pathName.startsWith('/signup') || pathName.startsWith('/login');
 
     const sensitiveRoutes = ['/home'];
 
@@ -42,5 +42,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ['/', '/login', '/register', '/home/:path*'],
+  matcher: ['/', '/login', '/signup', '/home/:path*'],
 };
