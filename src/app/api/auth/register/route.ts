@@ -16,20 +16,6 @@ export async function POST(request: Request) {
         password: body.password,
       });
 
-    if (parsedUsername.length < usernameMinLength) {
-      return NextResponse.json(
-        { error: 'Username must be at least 5 characters long.' },
-        { status: 400 }
-      );
-    }
-
-    if (parsedPassword.length < passwordMinLength) {
-      return NextResponse.json(
-        { error: 'Password must be at least 8 characters long.' },
-        { status: 400 }
-      );
-    }
-
     const existingUser =
       await sql`SELECT * FROM users WHERE username = ${parsedUsername} LIMIT 1;`;
 
