@@ -4,9 +4,6 @@ import { sql } from '@vercel/postgres';
 import { hash } from 'bcrypt';
 
 export async function POST(request: Request) {
-  const usernameMinLength = 5;
-  const passwordMinLength = 8;
-
   try {
     const body = await request.json();
 

@@ -2,18 +2,45 @@
 
 import { Task, taskSchema } from '@/lib/validation/task';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { LoaderCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useToast } from '@/components/ui/use-toast';
+import { useEffect } from 'react';
 
 const CreateTaskForm = () => {
-  const createTask = async (data: Task) => {};
+  const { toast } = useToast();
+
+  const createTask = async (data: Task) => {
+    try {
+      await axios.post('/api/tasks', data);
+
+      toast({
+        variant: 'success',
+        title: 'Success!',
+        description: 'Task created successfully!',
+      });
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'There was an error creating the task.',
+      });
+    }
+  };
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<Task>({ resolver: zodResolver(taskSchema) });
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <form className='space-y-8' onSubmit={handleSubmit(createTask)}>
