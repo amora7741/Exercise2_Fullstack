@@ -4,18 +4,18 @@ import NextAuth from 'next-auth';
 declare module 'next-auth' {
   interface Session {
     user: {
-      id: string;
+      id: number;
       username: string;
     };
   }
 
   interface User {
-    id: string;
+    id: number;
     username: string;
   }
 
   interface JWT {
-    id: string;
+    id: number;
     username: string;
   }
 }
