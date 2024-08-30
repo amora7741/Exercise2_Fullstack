@@ -5,9 +5,11 @@ import AuthForm from './AuthForm';
 import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const AuthFormWrapper = ({ page }: { page: 'login' | 'signup' }) => {
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSubmit = async (data: Credentials) => {
     const { username, password } = data;
@@ -45,6 +47,8 @@ const AuthFormWrapper = ({ page }: { page: 'login' | 'signup' }) => {
 
         if (!result?.ok) {
           throw new Error(result?.error || 'Failed to sign in');
+        } else {
+          router.replace('/home');
         }
       } catch (error: any) {
         toast({
