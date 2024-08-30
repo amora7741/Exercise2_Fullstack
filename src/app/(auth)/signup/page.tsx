@@ -3,7 +3,7 @@ import AuthFormWrapper from '@/components/AuthFormWrapper';
 const RegisterPage = () => {
   return (
     <div className='w-full'>
-      <AuthFormWrapper page='register' />
+      <AuthFormWrapper page='signup' />
     </div>
   );
 };
