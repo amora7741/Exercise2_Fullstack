@@ -38,9 +38,9 @@ const LogoutPopover = ({ username }: { username: string }) => {
           <LogOut />
         </button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className='bg-blue-400 border-0'>
         <AlertDialogHeader>
-          <AlertDialogTitle>Sign out?</AlertDialogTitle>
+          <AlertDialogTitle className='text-white'>Sign out?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

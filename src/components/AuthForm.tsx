@@ -42,7 +42,9 @@ const AuthForm = ({
         {page === 'login' ? 'Login' : 'Sign Up'}
       </h1>
       <div className='flex flex-col gap-2 relative'>
-        <label htmlFor='username'>Username</label>
+        <label className='text-white' htmlFor='username'>
+          Username
+        </label>
         <input
           {...register('username')}
           placeholder='Username'
@@ -56,7 +58,9 @@ const AuthForm = ({
         )}
       </div>
       <div className='flex flex-col gap-2 relative'>
-        <label htmlFor='password'>Password</label>
+        <label className='text-white' htmlFor='password'>
+          Password
+        </label>
         <input
           {...register('password')}
           type='password'
