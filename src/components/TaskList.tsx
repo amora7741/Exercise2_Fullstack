@@ -4,12 +4,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion } from '@/components/ui/accordion';
+import Task from './Task';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -43,17 +39,7 @@ const TaskList = () => {
           collapsible
         >
           {tasks.map((task) => (
-            <AccordionItem key={task.id} value={`item-${task.id}`}>
-              <AccordionTrigger>
-                <div className='flex justify-between w-full'>
-                  <p>{task.title}</p>
-                  <p>{task.priority} Priority</p>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                {task.description || 'No description provided.'}
-              </AccordionContent>
-            </AccordionItem>
+            <Task key={task.id} task={task} />
           ))}
         </Accordion>
       )}
