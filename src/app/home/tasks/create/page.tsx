@@ -1,11 +1,11 @@
-import CreateTaskForm from '@/components/CreateTaskForm';
+import TaskForm from '@/components/TaskForm';
 import PageHeader from '@/components/PageHeader';
 
 const CreateTaskPage = () => {
   return (
     <>
       <PageHeader>Create a Task</PageHeader>
-      <CreateTaskForm mode='create' />
+      <TaskForm mode='create' />
     </>
   );
 };

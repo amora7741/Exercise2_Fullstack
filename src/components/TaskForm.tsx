@@ -8,12 +8,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';
 
-interface CreateTaskFormProps {
+interface TaskFormProps {
   mode: 'create' | 'edit';
   task?: Task;
 }
 
-const CreateTaskForm = ({ mode, task }: CreateTaskFormProps) => {
+const TaskForm = ({ mode, task }: TaskFormProps) => {
   const { toast } = useToast();
 
   const handleSubmitForm: SubmitHandler<Task> = async (data) => {
@@ -129,4 +129,4 @@ const CreateTaskForm = ({ mode, task }: CreateTaskFormProps) => {
   );
 };
 
-export default CreateTaskForm;
+export default TaskForm;

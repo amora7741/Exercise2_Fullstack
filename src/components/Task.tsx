@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
-import CreateTaskForm from '@/components/CreateTaskForm';
+import TaskForm from '@/components/TaskForm';
 
 const Task = ({ task }: { task: Task }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -35,7 +35,7 @@ const Task = ({ task }: { task: Task }) => {
     <li className='border border-gray-300 rounded-lg p-4 mb-4'>
       <div className='flex justify-between items-center'>
         {isEditing ? (
-          <CreateTaskForm mode='edit' task={task} />
+          <TaskForm mode='edit' task={task} />
         ) : (
           <>
             <div>
