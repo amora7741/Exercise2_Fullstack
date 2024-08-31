@@ -20,6 +20,10 @@ const Task = ({ task }: { task: Task }) => {
         title: 'Success!',
         description: 'Your task was deleted successfully.',
       });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast({
         variant: 'destructive',

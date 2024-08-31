@@ -32,6 +32,10 @@ const TaskForm = ({ mode, task }: TaskFormProps) => {
           title: 'Success!',
           description: 'Task updated successfully!',
         });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
       toast({
