@@ -5,7 +5,7 @@ const CreateTaskPage = () => {
   return (
     <>
       <PageHeader>Create a Task</PageHeader>
-      <CreateTaskForm />
+      <CreateTaskForm mode='create' />
     </>
   );
 };

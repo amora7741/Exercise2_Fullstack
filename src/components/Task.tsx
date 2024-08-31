@@ -2,16 +2,12 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-
 import { useToast } from '@/components/ui/use-toast';
+import CreateTaskForm from '@/components/CreateTaskForm';
 
 const Task = ({ task }: { task: Task }) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
 
   const handleDelete = async () => {
@@ -36,31 +32,36 @@ const Task = ({ task }: { task: Task }) => {
   };
 
   return (
-    <AccordionItem value={`item-${task.id}`}>
-      <AccordionTrigger>
-        <div className='flex justify-between w-full'>
-          <p>{task.title}</p>
-          <p>{task.priority} Priority</p>
-        </div>
-      </AccordionTrigger>
-      <AccordionContent>
-        <div className='flex flex-col w-full'>
-          <p>{task.description || 'No description provided.'}</p>
-          <div className='flex gap-2 ml-auto'>
-            <button className='p-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-lg'>
-              Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              disabled={isDeleting}
-              className='p-2 px-4 bg-red-400 hover:bg-red-500 text-white rounded-lg'
-            >
-              {isDeleting ? 'Deleting...' : 'Delete'}
-            </button>
-          </div>
-        </div>
-      </AccordionContent>
-    </AccordionItem>
+    <li className='border border-gray-300 rounded-lg p-4 mb-4'>
+      <div className='flex justify-between items-center'>
+        {isEditing ? (
+          <CreateTaskForm mode='edit' task={task} />
+        ) : (
+          <>
+            <div>
+              <h3 className='text-lg font-semibold'>{task.title}</h3>
+              <p>{task.description || 'No description provided.'}</p>
+              <p className='text-sm text-gray-500'>{task.priority} Priority</p>
+            </div>
+            <div className='flex gap-2'>
+              <button
+                onClick={() => setIsEditing(true)}
+                className='p-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-lg'
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className='p-2 px-4 bg-red-400 hover:bg-red-500 text-white rounded-lg'
+              >
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </li>
   );
 };
 

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 
-import { Accordion } from '@/components/ui/accordion';
 import Task from './Task';
 
 const TaskList = () => {
@@ -33,15 +32,11 @@ const TaskList = () => {
       {loading ? (
         <LoaderCircle className='size-10 text-blue-400 animate-spin mx-auto' />
       ) : (
-        <Accordion
-          className='max-h-[80vh] overflow-auto'
-          type='single'
-          collapsible
-        >
+        <ul className='max-h-[80vh] overflow-auto'>
           {tasks.map((task) => (
             <Task key={task.id} task={task} />
           ))}
-        </Accordion>
+        </ul>
       )}
     </>
   );

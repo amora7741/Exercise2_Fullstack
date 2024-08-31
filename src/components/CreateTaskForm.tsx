@@ -1,30 +1,46 @@
 'use client';
 
-import { Task, taskSchema } from '@/lib/validation/task';
+import { taskSchema } from '@/lib/validation/task';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { LoaderCircle } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';
 
-const CreateTaskForm = () => {
+interface CreateTaskFormProps {
+  mode: 'create' | 'edit';
+  task?: Task;
+}
+
+const CreateTaskForm = ({ mode, task }: CreateTaskFormProps) => {
   const { toast } = useToast();
 
-  const createTask = async (data: Task) => {
+  const handleSubmitForm: SubmitHandler<Task> = async (data) => {
     try {
-      await axios.post('/api/tasks', data);
-
-      toast({
-        variant: 'success',
-        title: 'Success!',
-        description: 'Task created successfully!',
-      });
+      if (mode === 'create') {
+        await axios.post('/api/tasks', data);
+        toast({
+          variant: 'success',
+          title: 'Success!',
+          description: 'Task created successfully!',
+        });
+      } else if (mode === 'edit' && task) {
+        await axios.put(`/api/tasks/${task.id}`, data);
+        toast({
+          variant: 'success',
+          title: 'Success!',
+          description: 'Task updated successfully!',
+        });
+      }
     } catch (error) {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'There was an error creating the task.',
+        description:
+          mode === 'create'
+            ? 'There was an error creating the task.'
+            : 'There was an error updating the task.',
       });
     }
   };
@@ -34,7 +50,10 @@ const CreateTaskForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm<Task>({ resolver: zodResolver(taskSchema) });
+  } = useForm<Task>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: task,
+  });
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -43,7 +62,10 @@ const CreateTaskForm = () => {
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <form className='space-y-8' onSubmit={handleSubmit(createTask)}>
+    <form
+      className='space-y-8 w-full'
+      onSubmit={handleSubmit(handleSubmitForm)}
+    >
       <div className='flex flex-col gap-2 relative'>
         <label htmlFor='title'>Task Title</label>
         <input
@@ -100,7 +122,7 @@ const CreateTaskForm = () => {
         {isSubmitting ? (
           <LoaderCircle className='animate-spin' />
         ) : (
-          <p>Create Task</p>
+          <p>{mode === 'create' ? 'Create Task' : 'Update Task'}</p>
         )}
       </button>
     </form>
