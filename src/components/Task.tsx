@@ -37,34 +37,32 @@ const Task = ({ task }: { task: Task }) => {
 
   return (
     <li className='border border-gray-300 rounded-lg p-4 mb-4'>
-      <div className='flex justify-between items-center'>
-        {isEditing ? (
-          <TaskForm mode='edit' task={task} />
-        ) : (
-          <>
-            <div>
-              <h3 className='text-lg font-semibold'>{task.title}</h3>
-              <p>{task.description || 'No description provided.'}</p>
-              <p className='text-sm text-gray-500'>{task.priority} Priority</p>
-            </div>
-            <div className='flex gap-2'>
-              <button
-                onClick={() => setIsEditing(true)}
-                className='p-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-lg'
-              >
-                Edit
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={isDeleting}
-                className='p-2 px-4 bg-red-400 hover:bg-red-500 text-white rounded-lg'
-              >
-                {isDeleting ? 'Deleting...' : 'Delete'}
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+      {isEditing ? (
+        <TaskForm mode='edit' task={task} />
+      ) : (
+        <div className='flex flex-col md:flex-row items-center justify-between'>
+          <div className='self-start'>
+            <h3 className='text-lg font-semibold'>{task.title}</h3>
+            <p>{task.description || 'No description provided.'}</p>
+            <p className='text-sm text-gray-500'>{task.priority} Priority</p>
+          </div>
+          <div className='flex gap-2'>
+            <button
+              onClick={() => setIsEditing(true)}
+              className='p-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-lg'
+            >
+              Edit
+            </button>
+            <button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className='p-2 px-4 bg-red-400 hover:bg-red-500 text-white rounded-lg'
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </button>
+          </div>
+        </div>
+      )}
     </li>
   );
 };
