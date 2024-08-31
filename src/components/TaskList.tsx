@@ -4,6 +4,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,16 +37,25 @@ const TaskList = () => {
       {loading ? (
         <LoaderCircle className='size-10 text-blue-400 animate-spin mx-auto' />
       ) : (
-        <ul className='space-y-4 max-h-[80vh] overflow-auto'>
+        <Accordion
+          className='max-h-[80vh] overflow-auto'
+          type='single'
+          collapsible
+        >
           {tasks.map((task) => (
-            <li className='p-4 bg-blue-300 rounded-lg' key={task.id}>
-              <div className='flex justify-between'>
-                <p>{task.title}</p>
-                <p>{task.priority} Priority</p>
-              </div>
-            </li>
+            <AccordionItem key={task.id} value={`item-${task.id}`}>
+              <AccordionTrigger>
+                <div className='flex justify-between w-full'>
+                  <p>{task.title}</p>
+                  <p>{task.priority} Priority</p>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                {task.description || 'No description provided.'}
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </ul>
+        </Accordion>
       )}
     </>
   );
